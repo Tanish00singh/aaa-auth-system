@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VeriGate — Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/topbar', { user }) %>
+
+  <div class="container">
+    <h2 class="page-title">Your resources</h2>
+    <div class="grid grid-cards">
+      <% resources.forEach(r => { %>
+        <div class="card">
+          <span class="badge <%= r.min_role === 'admin' ? 'badge-admin' : 'badge-member' %>"><%= r.min_role %></span>
+          <h3><%= r.title %></h3>
+          <p><%= r.body %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

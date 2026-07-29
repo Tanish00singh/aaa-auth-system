@@ -1,0 +1,17 @@
+{
+  "name": "verigate",
+  "version": "1.0.0",
+  "description": "VeriGate — an AAA (Authentication, Authorization, Accounting) demo portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^11.3.0",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0"
+  }
+}

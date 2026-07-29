@@ -1,0 +1,14 @@
+<div class="topbar">
+  <div class="brand"><span class="brand-mark"></span> VeriGate</div>
+  <div class="topbar-right">
+    <span>Signed in as <strong><%= user.username %></strong></span>
+    <span class="role-pill <%= user.role === 'admin' ? 'role-admin' : 'role-member' %>"><%= user.role %></span>
+    <% if (user.role === 'admin') { %>
+      <a href="/admin">Admin console</a>
+    <% } %>
+    <a href="/dashboard">Dashboard</a>
+    <form method="POST" action="/logout" style="display:inline;">
+      <button type="submit" class="btn btn-ghost">Sign out</button>
+    </form>
+  </div>
+</div>

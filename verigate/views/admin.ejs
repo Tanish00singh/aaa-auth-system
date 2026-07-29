@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VeriGate — Admin console</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('partials/topbar', { user }) %>
+
+  <div class="container">
+    <h2 class="page-title">Admin console</h2>
+
+    <div class="grid grid-stats">
+      <div class="card"><div class="stat-num"><%= stats.onlineNow %></div><div class="stat-label">Online now</div></div>
+      <div class="card"><div class="stat-num"><%= stats.totalUsers %></div><div class="stat-label">Total users</div></div>
+      <div class="card"><div class="stat-num"><%= stats.failedLoginsLast24h %></div><div class="stat-label">Failed logins (24h)</div></div>
+      <div class="card"><div class="stat-num"><%= stats.totalEvents %></div><div class="stat-label">Total events logged</div></div>
+    </div>
+
+    <section class="panel">
+      <h2>Currently logged in</h2>
+      <table>
+        <thead><tr><th>Username</th><th>Role</th><th>Last seen</th></tr></thead>
+        <tbody>
+          <% if (online.length === 0) { %>
+            <tr><td colspan="3">Nobody else is active right now.</td></tr>
+          <% } %>
+          <% online.forEach(o => { %>
+            <tr>
+              <td><%= o.username %></td>
+              <td><%= o.role %></td>
+              <td><%= o.lastSeen %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Registered users &amp; access levels</h2>
+      <table>
+        <thead><tr><th>Username</th><th>Role</th><th>Created</th><th></th></tr></thead>
+        <tbody>
+          <% users.forEach(u => { %>
+            <tr>
+              <td><%= u.username %></td>
+              <td><%= u.role %></td>
+              <td><%= u.created_at %></td>
+              <td>
+                <form method="POST" action="/admin/promote/<%= u.id %>">
+                  <button type="submit" class="small-btn">
+                    <%= u.role === 'admin' ? 'Demote to member' : 'Promote to admin' %>
+                  </button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Accounting register (audit trail)</h2>
+      <table>
+        <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Status</th><th>IP</th><th>Detail</th></tr></thead>
+        <tbody>
+          <% auditLog.forEach(a => { %>
+            <tr>
+              <td><%= a.ts %></td>
+              <td><%= a.actor %></td>
+              <td><%= a.action %></td>
+              <td>
+                <span class="status-dot <%= a.status === 'success' ? 'dot-success' : 'dot-failure' %>"></span>
+                <%= a.status %>
+              </td>
+              <td><%= a.ip %></td>
+              <td><%= a.detail %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</body>
+</html>
