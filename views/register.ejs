@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VeriGate — Create account</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <h1>Create account</h1>
+      <p class="sub">New accounts start with member-level access</p>
+
+      <form method="POST" action="/register">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="8" />
+
+        <label for="confirm">Confirm password</label>
+        <input type="password" id="confirm" name="confirm" required minlength="8" />
+
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+
+      <% if (error) { %>
+        <div class="error-box"><%= error %></div>
+      <% } %>
+
+      <p class="foot-link">Already have an account? <a href="/login">Sign in</a></p>
+    </div>
+  </div>
+</body>
+</html>
